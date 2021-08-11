@@ -1,16 +1,19 @@
-# This is a sample Python script.
+import smtplib, ssl
+from getpass import getpass
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+message = """\
+Subject : Hi,
 
+my name is jacob."""
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+port = 465
+sender_email = input("Enter sender email")
+sender_password = input('Enter your password')
+receiver_email = input("Enter receiver email")
 
+context = ssl.create_default_context()
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+    server.ehlo()
+    server.login(sender_email, sender_password)
+    server.sendmail(sender_email, receiver_email, message)
