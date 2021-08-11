@@ -1,12 +1,12 @@
 import smtplib, ssl
-from getpass import getpass
+import getpass
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
 port = 465
 sender_email = input("Enter sender email")
-sender_password = input('Enter your password')
+sender_password = getpass.getpass(prompt = "Enter password")
 receiver_email = input("Enter receiver email")
 
 message = MIMEMultipart("alternative")
